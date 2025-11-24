@@ -1,0 +1,81 @@
+section h3 {
+    padding: 20px;
+    margin: 0;
+    padding-bottom: 0;
+    font-size: 17px;
+}
+
+section.info {
+    margin-left: 20px;
+    margin-right: 20px;
+    text-transform: capitalize;
+    font-size: 13px;
+    padding-bottom: 20px;
+}
+
+.info form div:not(.grid) {
+    display: flex;
+    flex-flow: column wrap;
+    margin-bottom: 10px;
+}
+
+section.info form label span {
+    color: var(--red-color);
+}
+
+section.info form input {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 6px;
+    color: white;
+    background-color: var(--blue-alt-color);
+}
+
+section.info form input::placeholder {
+    color: blanchedalmond;
+}
+
+section.info form input:disabled {
+    color: white;
+    background-color: black;
+    cursor: not-allowed;
+}
+
+button {
+    color: white;
+    background-color: var(--orange-color);
+    width: fit-content;
+    margin: 10px 20px 0px auto;
+    padding: 5px 9px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: block;
+}
+
+section.info button#edit-info {
+    background-color: var(--orange-color);
+}
+
+button#submit {
+    background-color: var(--green-color);
+}
+hr {
+    margin-top: 10px;
+    margin-inline: 20px;
+}
+form.year-targets {
+    padding: 20px;
+    font-size: 16px;
+}
+
+form.year-targets i {
+    margin-right: 6px;
+}
+.year-targets input {
+    font-size: 13px;
+}
+
+.year-targets button#submit {
+    margin-right: 0;
+    font-size: 13px;
+}

@@ -1,0 +1,104 @@
+{% extends "layout.html" %}
+{% block title %} Dashboard : Contacts {% endblock %}
+{% block design %}
+<link rel="stylesheet" href="/static/css/contacts.css">{% endblock %}
+{% block main %}
+<h1>Contacts List </h1>
+<section class="responsive-table">
+    <button id="add"><i class="fa-solid fa-user-plus"></i> Add New Contact</button>
+    <div class="container">
+        {% for contact in contacts %}
+        <div id="contact-{{ contact.id}}">
+            <i class="fas fa-user" id="user"></i>
+            <div>
+                <div class="flex">
+                    <div>
+                        <h4>{{ contact.name }}</h4>
+                        <span class="role">{{ contact.role }}</span>
+                    </div>
+                    <i class="fas fa-info-circle" id="edit"></i>
+                </div>
+                <hr>
+                <div class="flex">
+                    <a href="/delete_contact" id="remove"><i class="fas fa-trash"></i></a>
+                    <a href="https:/wa.me/{{ contact.number }}"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+    </div>
+</section>
+
+<form action="/contacts" method="post">
+    <div class="flex">
+        <h3>Add New Contact</h3>
+        <i id="close-btn" class="fas fa-x"></i>
+    </div>
+    <div>
+        <label for="contact-name">contact name <span>*</span></label>
+        <input type="text" name="contact-name" placeholder="contact name" id="contact-name">
+    </div>
+    <div>
+        <label for="contact-number">contact number <span>*</span></label>
+        <input type="text" name="contact-number" placeholder="contact number : +212..." id="contact-number">
+    </div>
+    <div>
+        <label for="role">contact role <span>*</span></label>
+        <input type="text" name="role" placeholder="contact role" id="role">
+    </div>
+    <div>
+        <input type="number" name="id" hidden>
+    </div>
+    <button type="submit">Save Contact </button>
+</form>
+{% endblock %}
+{% block script %}
+<script>
+    let imgs = document.querySelectorAll(".img");
+    imgs.forEach((e) => {
+        e.style.backgroundImage = `url(/static/imgs/course-0${Math.ceil(Math.random() * 5)}.jpg)`;
+    })
+
+    const add = document.querySelector("button#add");
+
+    add.addEventListener("click", function () {
+        document.querySelector(".page").classList.add("active");
+        document.querySelector("form").style.display = 'flex';
+    });
+    const closeForm = document.querySelector("form i#close-btn");
+    closeForm.addEventListener("click", (event) => {
+        event.target.parentElement.parentElement.style.display = 'none';
+        document.querySelector(".page").classList.remove("active");
+    });
+
+    const edit = document.querySelectorAll("i#edit");
+    edit.forEach((e) => {
+        e.addEventListener("click", function (event) {
+            document.querySelector("form input[name='id']").value = e.parentElement.parentElement.parentElement.getAttribute("id").replace("contact-", "");
+            document.querySelector(".page").classList.add("active");
+            document.querySelector("form").style.display = 'flex';
+        })
+    })
+    const remove = document.querySelectorAll("a#remove");
+    remove.forEach((e) => {
+        e.addEventListener("click", function (event) {
+            // Get The Id Of The User 
+            const id = e.parentElement.parentElement.parentElement.getAttribute("id").replace("contact-", "")
+            const form = new FormData();
+            form.append("id", id);
+            fetch("/delete_contact", {
+                method: "POST",
+                body: form
+            })
+        })
+    })
+
+    document.querySelector("form").addEventListener("submit ", (event) => {
+        if (document.querySelector("form input[name='id']") === '') {
+            document.querySelector("form input[name='id']").value = -1;
+        }
+    })
+</script>
+{% endblock %}

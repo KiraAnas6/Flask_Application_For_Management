@@ -1,0 +1,140 @@
+{% extends "layout.html" %}
+{% block title %} Dashboard : Projects {% endblock %}
+{% block design %}
+<link rel="stylesheet" href="/static/css/projects.css">{% endblock %}
+{% block main %}
+<h1>Projects List </h1>
+<section class="responsive-table">
+    <button id="add"><i class="fa-solid fa-user-plus"></i> Add New Project</button>
+    <div class="container">
+        {% for project in projects %}
+        <div class="{{ project.status }}" id="project-{{ project.id}}">
+            <span class="finish-date">{{ project.finish_date}}</span>
+            <div class="img">
+                <img src="" alt="">
+            </div>
+            <div>
+                <div class="flex">
+                    <h4>{{ project.name }}</h4>
+                    <div class="flex">
+                        <a href="/delete_project" id="remove"><i class="fas fa-trash"></i></a>
+                        <i class="fas fa-info-circle" id="edit"></i>
+                    </div>
+
+                </div>
+                <div class="flex">
+                    <span class="status">
+                        {{ project.status | replace("-" , " ") }}
+                    </span>
+                    <span class="price">
+                        {{ project.price }} DH
+                    </span>
+                </div>
+                <hr>
+                <a class="client-name" href="https://wa.me/{{ project.client_number }}"><i class="fab fa-whatsapp"></i>
+                    {{ project.client_name }}</a>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+    </div>
+</section>
+
+<form action="/projects" method="post">
+    <div class="flex">
+        <h3>Add New Project</h3>
+        <i id="close-btn" class="fas fa-x"></i>
+    </div>
+    <div>
+        <label for="project-name">project name <span>*</span></label>
+        <input type="text" name="project-name" placeholder="project name" id="project-name">
+    </div>
+    <div>
+        <label for="price">task description <span>*</span></label>
+        <input type="number" name="price" placeholder="project price" id="price">
+    </div>
+    <div>
+        <label for="finish-date">deadline <span>*</span></label>
+        <input type="date" name="finish-date" id="finish-date">
+    </div>
+    <div class="stat">
+        <div>
+            <label for="pending">pending</label>
+            <input type="radio" name="status" id="pending" value="pending" checked>
+        </div>
+        <div>
+            <label for="in-progress">in progress</label>
+            <input type="radio" name="status" id="in-progress" value="in-progress">
+        </div>
+        <div>
+            <label for="completed">completed</label>
+            <input type="radio" name="status" id="completed" value="completed">
+        </div>
+        <div>
+            <label for="rejected">rejected</label>
+            <input type="radio" name="status" id="rejected" value="rejected">
+        </div>
+    </div>
+    <div>
+        <label for="client">Choose Client </label>
+        <select name="client-id" id="client">
+            {% for client in clients %}
+            <option value="{{ client.id }}">{{ client.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <input type="number" name="id" hidden>
+    </div>
+    <button type="submit">Save Project </button>
+</form>
+{% endblock %}
+{% block script %}
+<script>
+    let imgs = document.querySelectorAll(".img");
+    imgs.forEach((e) => {
+        e.style.backgroundImage = `url(/static/imgs/course-0${Math.ceil(Math.random() * 5)}.jpg)`;
+    })
+
+    const add = document.querySelector("button#add");
+
+    add.addEventListener("click", function () {
+        document.querySelector(".page").classList.add("active");
+        document.querySelector("form").style.display = 'flex';
+    });
+    const closeForm = document.querySelector("form i#close-btn");
+    closeForm.addEventListener("click", (event) => {
+        event.target.parentElement.parentElement.style.display = 'none';
+        document.querySelector(".page").classList.remove("active");
+    });
+
+    const edit = document.querySelectorAll("i#edit");
+    edit.forEach((e) => {
+        e.addEventListener("click", function (event) {
+            document.querySelector("form input[name='id']").value = e.parentElement.parentElement.parentElement.parentElement.getAttribute("id").replace("project-", "");
+            document.querySelector(".page").classList.add("active");
+            document.querySelector("form").style.display = 'flex';
+        })
+    })
+    const remove = document.querySelectorAll("a#remove");
+    remove.forEach((e) => {
+        e.addEventListener("click", function (event) {
+            // Get The Id Of The User 
+            const id = e.parentElement.parentElement.parentElement.parentElement.getAttribute("id").replace("project-", "")
+            const form = new FormData();
+            form.append("id", id);
+            fetch("/delete_project", {
+                method: "POST",
+                body: form
+            })
+        })
+    })
+
+    document.querySelector("form").addEventListener("submit ", (event) => {
+        if (document.querySelector("form input[name='id']") === '') {
+            document.querySelector("form input[name='id']").value = -1;
+        }
+    })
+</script>
+{% endblock %}

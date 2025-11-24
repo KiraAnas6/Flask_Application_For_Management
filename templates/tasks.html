@@ -1,0 +1,124 @@
+{% extends "layout.html" %}
+{% block title %} Dashboard : Tasks {% endblock %}
+{% block design %}
+<link rel="stylesheet" href="/static/css/tasks.css">{% endblock %}
+{% block main %}
+<h1>Tasks List </h1>
+<section class="responsive-table">
+    <button id="add"><i class="fa-solid fa-user-plus"></i> Add New Task</button>
+    <table>
+        <thead>
+            <tr>
+                <th class="hide-mobile">Icon</th>
+                <th>task name </th>
+                <th>task description </th>
+                <th>deadline</th>
+                <th>status</th>
+                <th>icons</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr id="task-{{ task.id }}">
+                <td class="hide-mobile"><i class="fas fa-check"></i></td>
+                <td>{{ task.name }}</td>
+                <td>{{ task.description }}</td>
+                <td>{{ task.finish_date }}</td>
+                <td><span class="{{ task.status }}">{{ task.status | replace("-", " ")}}</span></td>
+                <td class="icons">
+                    <i class="fas fa-info-circle" id="edit"></i>
+                    <a href="/delete_task" id="remove"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+<form action="/tasks" method="post">
+    <div class="flex">
+        <h3>Add New Task</h3>
+        <i id="close-btn" class="fas fa-x"></i>
+    </div>
+    <div>
+        <label for="task-name">task name <span>*</span></label>
+        <input type="text" name="task-name" placeholder="task name" id="task-name">
+    </div>
+    <div>
+        <label for="description">task description <span>*</span></label>
+        <textarea name="description" placeholder="task description" id="description"></textarea>
+    </div>
+    <div>
+        <label for="start-date">Start Day <span>*</span></label>
+        <input type="date" name="start-date" id="start-date">
+    </div>
+    <div>
+        <label for="finish-date">deadline <span>*</span></label>
+        <input type="date" name="finish-date" id="finish-date">
+    </div>
+    <div class="stat">
+        <div>
+            <label for="pending">pending</label>
+            <input type="radio" name="status" id="pending" value="pending" checked>
+        </div>
+        <div>
+            <label for="in-progress">in progress</label>
+            <input type="radio" name="status" id="in-progress" value="in-progress">
+        </div>
+        <div>
+            <label for="completed">completed</label>
+            <input type="radio" name="status" id="completed" value="completed">
+        </div>
+        <div>
+            <label for="rejected">rejected</label>
+            <input type="radio" name="status" id="rejected" value="rejected">
+        </div>
+    </div>
+    <div>
+        <input type="number" name="id" hidden>
+    </div>
+    <button type="submit">Save Task </button>
+</form>
+{% endblock %}
+{% block script %}
+<script>
+    const add = document.querySelector("button#add");
+
+    add.addEventListener("click", function () {
+        document.querySelector(".page").classList.add("active");
+        document.querySelector("form").style.display = 'flex';
+    });
+    const closeForm = document.querySelector("form i#close-btn");
+    closeForm.addEventListener("click", (event) => {
+        event.target.parentElement.parentElement.style.display = 'none';
+        document.querySelector(".page").classList.remove("active");
+    });
+    const edit = document.querySelectorAll("i#edit");
+    edit.forEach((e) => {
+        e.addEventListener("click", function (event) {
+            document.querySelector("form input[name='id']").value = e.parentElement.parentElement.getAttribute("id").replace("task-", "");
+            document.querySelector(".page").classList.add("active");
+            document.querySelector("form").style.display = 'flex';
+        })
+    })
+    const remove = document.querySelectorAll("a#remove");
+    remove.forEach((e) => {
+        e.addEventListener("click", function (event) {
+            // Get The Id Of The User 
+            const id = e.parentElement.parentElement.getAttribute("id").replace("task-", "")
+            const form = new FormData();
+            form.append("id", id);
+            fetch("/delete_task", {
+                method: "POST",
+                body: form
+            })
+        })
+    })
+    
+    document.querySelector("form").addEventListener("submit ", (event) => {
+        if (document.querySelector("form input[name='id']") === '') {
+            document.querySelector("form input[name='id']").value = -1;
+        }
+    })
+</script>
+{% endblock %}

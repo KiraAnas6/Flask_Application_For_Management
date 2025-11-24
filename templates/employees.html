@@ -1,0 +1,126 @@
+{% extends "layout.html" %}
+{% block title %} Dashboard : Profile {% endblock %}
+{% block design %}
+<link rel="stylesheet" href="/static/css/employees.css">
+{% endblock %}
+{% block main %}
+<h1>Employees List </h1>
+<section>
+    <div class="sort-option">
+        <div id="option">
+            <i class="fas fa-th-large hide-mobile" sort="grid"></i>
+            <i class="fas fa-list active" sort="flex"></i>
+        </div>
+        <button><i class="fa-solid fa-user-plus"></i> Add New Employee</button>
+    </div>
+    <div class="container" sort="flex">
+        {% for item in data %}
+        <div id="employee-{{ item.id}}">
+            <i class="fa-solid fa-circle-user" id="user"></i>
+            <h4>{{ item.first_name }} {{ item.last_name }}</h4>
+            <span>{{ item.job }}</span>
+            <span>{{ item.email }}</span>
+            <span>{{ item.salary }} DH</span>
+            <div class="icons">
+                <button id="edit"><i class="fa-solid fa-circle-info"></i></button>
+                <a href="/delete_employee" id="remove"><i class="fa-solid fa-trash"></i></a>
+                <a href="https://wa.ma/{{ item.number }}"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+<form action="/employees" method="post">
+    <div class="flex">
+        <h3>Add New Employee</h3>
+        <i id="close-btn" class="fas fa-x"></i>
+    </div>
+    <div>
+        <label for="first-name">first name <span>*</span></label>
+        <input type="text" name="first-name" placeholder="first name" id="first-name">
+    </div>
+    <div>
+        <label for="last-name">last name <span>*</span></label>
+        <input type="text" name="last-name" placeholder="last name" id="last-name">
+    </div>
+    <div>
+        <label for="job">job <span>*</span></label>
+        <input type="text" name="job" placeholder="job" id="job">
+    </div>
+    <div>
+        <label for="salary">salary <span>*</span></label>
+        <input type="number" name="salary" placeholder="salary" id="salary">
+    </div>
+    <div>
+        <label for="email">email <span>*</span></label>
+        <input type="email" name="email" placeholder="email" id="email">
+    </div>
+    <div>
+        <label for="number">number <span>*</span></label>
+        <input type="text" name="number" placeholder="number" id="number">
+    </div>
+    <div>
+        <input type="number" name="id" hidden>
+    </div>
+    <button type="submit">Save Employee</button>
+</form>
+{% endblock %}
+{% block script %}
+<script>
+    const sortIcons = document.querySelectorAll(".sort-option #option i");
+    sortIcons.forEach(function (btn) {
+        btn.addEventListener("click", () => {
+            sortIcons.forEach((element) => {
+                element.classList.remove("active");
+            })
+            btn.classList.add("active");
+            sortOption(btn);
+        })
+    });
+    function sortOption(active) {
+        let division = active.getAttribute("sort");
+        let container = document.querySelector(".container");
+        container.setAttribute("id", division);
+    }
+    const addEmploye = document.querySelector(".sort-option button");
+    addEmploye.addEventListener("click", function () {
+        document.querySelector(".page").classList.add("active");
+        document.querySelector("form").style.display = 'flex';
+    })
+    const closeForm = document.querySelector("form i#close-btn");
+    closeForm.addEventListener("click", (event) => {
+        event.target.parentElement.parentElement.style.display = 'none';
+        document.querySelector(".page").classList.remove("active");
+    })
+    const edit = document.querySelectorAll("button#edit");
+    edit.forEach((e) => {
+        e.addEventListener("click", function (event) {
+            document.querySelector("form input[name='id']").value = e.parentElement.parentElement.getAttribute("id").replace("employee-" , "");
+            document.querySelector(".page").classList.add("active");
+            document.querySelector("form").style.display = 'flex';
+        })
+    })
+
+
+    const removeEmployee = document.querySelectorAll("a#remove");
+    removeEmployee.forEach((e) => {
+        e.addEventListener("click", function (event) {
+            // Get The Id Of The Employee 
+            const id = e.parentElement.parentElement.getAttribute("id").replace("employee-" , "")
+            const form = new FormData();
+            form.append("id", id);
+            fetch("/delete_employee", {
+                method: "POST",
+                body: form
+            })
+        })
+    })
+
+    
+    document.querySelector("form").addEventListener("submit ", (event) => {
+        if (document.querySelector("form input[name='id']") === '') {
+            document.querySelector("form input[name='id']").value = -1;
+        }
+    })
+</script>
+{% endblock %}

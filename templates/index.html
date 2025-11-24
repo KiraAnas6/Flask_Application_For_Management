@@ -1,0 +1,106 @@
+{% extends "layout.html" %}
+{% block title %} Dashboard : Home {% endblock %}
+{% block design %}
+<link rel="stylesheet" href="/static/css/home.css">
+{% endblock %}
+{% block main %}
+<h1>Dashboard</h1>
+<div class="grid">
+    <section class="welcome">
+        <div>
+            <div class="text">
+                <h3>Welcome</h3><br>{{ info.first_name }}
+            </div>
+            <div>
+                <img src="/static/imgs/welcome.png" alt="">
+            </div>
+        </div>
+        <div class="img">
+            <img src="/static/imgs/profile.png" alt="">
+        </div>
+        <div class="more-info">
+            <div>
+                {{ info.first_name }} {{ info.last_name}}
+                <span>{{ info.role }}</span>
+            </div>
+            <div>
+                {{ info.projects_count }}
+                <span>Projects</span>
+            </div>
+            <div>
+                {{ info.employees_count }}
+                <span>Empoloyees</span>
+            </div>
+        </div>
+        <a href="/profile">profile</a>
+    </section>
+    <section class="year-targets">
+        <h3>Year Targets</h3>
+        <span>Targets Of The Year</span>
+        <article>
+            {% for target in targets %}
+            <div>
+                <i class="fa-solid fa-{{ target.icon }}"></i>
+                <div class="info">
+                    <span>{{ target.name }}</span>
+                    <h4>{{ target.value }}</h4>
+                    <div class="progress-bar">
+                        <span style="width: {{ target.width }}%;">
+                            <span>{{target.width}}%</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </article>
+    </section>
+    <section class="tasks">
+        <h3>Latest Tasks</h3>
+        <article>
+            {% for task in tasks %}
+            <div class="task {{ task.status }}">
+                <div class="info">
+                    <h4>{{ task.name }}</h4>
+                    <span>{{ task.description }}</span>
+                </div>
+                <i class="fa-solid fa-trash"></i>
+            </div>
+            {% endfor %}
+        </article>
+    </section>
+    <section class="projects">
+        <h3>Stats Of The Projects</h3>
+        {% for project in projects_stats %}
+        <div class="project {{ project.status }}">
+            <h4>{{ project.stat }}</h4>
+            <span>{{ project.status | replace("-" , " ")}}</span>
+        </div>
+        {% endfor %}
+    </section>
+</div>
+<section class="table">
+    <h3>Latest Projects</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>finish date</th>
+                <th>client</th>
+                <th>status</th>
+                <th>price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for project in projects %}
+            <tr>
+                <td>{{ project.name }}</td>
+                <td>{{ project.finish_date }}</td>
+                <td>{{ project.client_name }}</td>
+                <td><span class="{{ project.status }}">{{ project.status }}</span></td>
+                <td>{{ project.price }} DH</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}

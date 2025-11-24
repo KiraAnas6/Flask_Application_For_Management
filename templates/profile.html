@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block title %} Dashboard : Profile {% endblock %}
+{% block design %}
+<link rel="stylesheet" href="/static/css/profile.css">
+{% endblock %}
+{% block main %}
+<h1>profile informations </h1>
+<section class="info">
+    <h3>Admin informations</h3>
+    <form action="/profile" method="post">
+        <div class="container grid">
+            {% for key , value in data.items() %}
+            <div>
+                <label for="{{ key }}">{{ key | replace('_' , ' ') }} <span>*</span></label>
+                <input type="text" name="{{ key | replace('_', '-') }}" id="{{ key }}"
+                    placeholder="{{ key | replace('_', ' ')}} : {{ value }}" disabled>
+            </div>
+            {% endfor %}
+        </div>
+        <button type="submit" hidden id="submit">Save Info</button>
+    </form>
+    <hr>
+    <h3>Year Targets</h3>
+    <form action="/profile" method="post" class="year-targets">
+        {% for target in targets %}
+        <div>
+            <label for="{{ target.name }}"><i class="fas fa-{{ target.icon }}"></i>{{target.name }}
+                <span>*</span></label>
+            <input type="number" name="{{ target.name }}" placeholder="{{ target.value }}" disabled>
+        </div>
+        {% endfor %}
+        <button type="submit" hidden id="submit">Save Info</button>
+    </form>
+    <button id="edit-info">Edit Info</button>
+</section>
+{% endblock %}
+{% block script %}
+<script>
+    const editForm = document.querySelector("button#edit-info");
+    const submitBtn = document.querySelectorAll("button#submit");
+    const inputs = document.querySelectorAll("section form input");
+    editForm.addEventListener("click", (event) => {
+        event.preventDefault();
+        inputs.forEach(function (ele) {
+            ele.removeAttribute("disabled");
+        })
+        submitBtn.forEach((btn) => {
+            btn.removeAttribute("hidden");
+        })
+        editForm.setAttribute("hidden", "");
+    })
+</script>
+{% endblock %}

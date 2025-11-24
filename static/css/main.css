@@ -1,0 +1,180 @@
+:root {
+    --blue-color: #0075ff;
+    --blue-alt-color: #0d69d5;
+    --orange-color: #f59e0b;
+    --green-color: #22c55e;
+    --red-color: #f44336;
+    --grey-color: #888;
+}
+* {
+    box-sizing: border-box;
+}
+body {
+    padding: 0;
+    margin: 0;
+    font-family: "Roboto" , sans-serif;
+}
+::-webkit-scrollbar {
+    background-color: var(--blue-alt-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color:  var(--green-color);
+}
+.page {
+    display: flex;
+    min-height: 100vh;
+    position: relative;
+}
+
+
+.page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: black;
+    opacity: .6;
+    display: none;
+}
+
+.page.active::before {
+    display: block;
+}
+aside {
+    min-width: 15%;
+    position: relative;
+    padding-top: 30px;
+    box-shadow: 0px 0px 10px #ddd;
+    transition: .3s ;
+    text-transform: capitalize;
+}
+aside.active {
+    min-width : fit-content ;
+}
+aside.active h3{
+    display: none;
+}
+aside.active span{
+    display: none;
+}
+@media (max-width : 767px) {
+    aside span {
+        display: none;
+    }
+}
+aside i#close-btn {
+    position: absolute;
+    right: 22px;
+    top: 10px;
+    cursor: pointer;
+}
+aside li i {
+    margin-right: 10px;
+}
+aside h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    transition: .3s ;
+    position: relative;
+}
+aside h3::before,
+aside h3::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+aside h3::before {
+    width: 50%;
+    height: 3px;
+    background-color: black;
+    bottom: -10px;
+}
+aside h3::after {
+    width: 15px;
+    height: 15px;
+    background-color: black;
+    border: solid 3px white;
+    bottom: -19px;
+    border-radius: 50%;
+}
+aside h3:hover {
+    background-color: #eee;
+
+}
+aside .links {
+    padding-left: 10px;
+}
+aside .links li {
+    margin-bottom: 20px;
+    padding: 10px;
+    transition: .3s ;
+    width: 80%;
+    border-radius: 10px;
+}
+aside .links li:hover ,
+aside .links li.active {
+    background-color: #eee;
+}
+main {
+    flex-grow: 1;
+    background-color: #f1f5f9;
+}
+main header {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+}
+main header img {
+    max-width: 60px;
+    border-radius: 50%;
+}
+main .grid {
+    padding: 20px ;
+    display: grid;
+    grid-template-columns: repeat(auto-fill , minmax(450px , 1fr));
+    gap: 20px;
+}
+section {
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 3px 3px 6px 0;
+}
+h1 {
+    text-transform: capitalize;
+    margin: 20px;
+    position: relative;
+    width: fit-content;
+}
+h1::before , 
+h1::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    height: 4px;
+    bottom: -10px;
+}
+h1::before {
+    background-color: white;
+    width: 100%;
+}
+h1::after {
+    background-color: black;
+    width: 50%;
+}
+@media (max-width : 767px) {
+    .hide-mobile {
+        display: none !important;
+    }
+}
+textarea {
+        border: solid 1px #ddd;
+    padding: 10px;
+}

@@ -1,0 +1,171 @@
+
+section {
+    background-color: transparent;
+    box-shadow: none;
+    padding: 20px;
+}
+
+.sort-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.sort-option>* {
+    background-color: white;
+    border-radius: 6px;
+}
+
+.sort-option div {
+    display: flex;
+    align-items: center;
+}
+
+.sort-option i {
+    width: 50px;
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.sort-option i.active {
+    color: var(--blue-alt-color);
+}
+
+.sort-option button {
+    display: flex;
+    border: solid 1px #ddd;
+    gap: 10px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.sort-option button i {
+    border-right: inherit;
+}
+
+.container#grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+    gap: 10px;
+}
+
+.container>div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    border: solid 1px #eee;
+    padding: 20px;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+
+@media (max-width : 767px) {
+    .container>div {
+        flex-flow: column;
+        gap: 15px;
+        box-shadow: 2px 2px 3px
+    }
+}
+.container h4 {
+    font-size: 14px;
+}
+.container .icons {
+    display: flex;
+    gap: 10px;
+}
+
+.container>div span {
+    color: #aaa;
+    font-size: 13px;
+}
+
+.container i#user {
+    font-size: 35px;
+}
+
+.container>div button {
+    cursor: pointer;
+    background-color: transparent;
+}
+
+form {
+    position: absolute;
+    inset: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background: white;
+    margin-inline: 20px;
+    border-radius: 10px;
+    z-index: 2;
+    width: 300px;
+    height: fit-content;
+    flex-flow: column wrap;
+    display: none;
+}
+
+form .flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+form .flex i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: .3s;
+    padding: 10px;
+}
+
+form .flex i:hover {
+    background-color: var(--red-color);
+    color: white;
+}
+
+form div:not(.flex) {
+    display: flex;
+    flex-flow: column wrap;
+    margin-bottom: 10px;
+}
+
+form label span {
+    color: var(--red-color);
+}
+
+form input {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 6px;
+    color: white;
+    background-color: var(--blue-alt-color);
+}
+
+form input::placeholder {
+    color: blanchedalmond;
+}
+
+form input:disabled {
+    color: white;
+    background-color: black;
+    cursor: not-allowed;
+}
+
+form button {
+    color: white;
+    background-color: var(--orange-color);
+    width: fit-content;
+    margin: 10px 20px 0px auto;
+    padding: 5px 9px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: block;
+}

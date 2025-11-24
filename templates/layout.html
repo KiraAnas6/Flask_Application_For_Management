@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/static/imgs/icon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/normalize.css">
+    <link rel="stylesheet" href="/static/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <title>{% block title %}{% endblock %}</title>
+    {% block design %}{% endblock %}
+</head>
+
+<body>
+    <div class="page">
+        <aside>
+            <i class="fas fa-x" id="close-btn"></i>
+            <h3>MiniOffice</h3>
+            <ul class="links">
+                <li><a href="/"><i class="fas fa-user"></i><span>Dashboard</span></a></li>
+                <li><a href="/profile"><i class="fas fa-gear"></i><span>Profile</span></a></li>
+                <li><a href="/employees"><i class="fas fa-users"></i><span>Employees</span></a></li>
+                <li><a href="/tasks"><i class="fas fa-tasks"></i><span>Tasks</span></a></li>
+                <li><a href="/projects"><i class="fas fa-folder-open"></i><span>Projects</span></a></li>
+                <li><a href="/contacts"><i class="fas fa-address-book"></i><span>Contacts</span></a></li>
+            </ul>
+        </aside>
+        <main>
+            <header>
+                <img src="/static/imgs/profile.png" alt="">
+            </header>
+            {% block main %}{% endblock %}
+        </main>
+    </div>
+    <script src="/static/js/main.js">
+        const links = document.querySelectorAll("aside ul.links a");
+        links.forEach((element) => {
+            /* if (element.getAttribute("href") === window.location.href.split("/")[window.location.href.split("/").length - 1]) {
+                element.classList.add("active");
+            } */
+            console.log(element.getAttribute("href"));
+        })
+    </script>
+    {% block script %}{% endblock%}
+</body>
+
+</html>

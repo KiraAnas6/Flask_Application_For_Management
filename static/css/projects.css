@@ -1,0 +1,237 @@
+main section {
+    margin-inline: 20px;
+    padding: 10px;
+}
+
+#add {
+    padding: 20px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    font-size: large;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#add i {
+    font-size: 20px;
+}
+
+.container {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 10px;
+}
+
+.container>div {
+    background: #f1f5f9;
+    max-width: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    transition: .3s;
+}
+
+
+.container>div:hover {
+    transform: translate(-10px, -10px);
+
+}
+
+.container>div.in-progress:hover {
+    box-shadow: 3px 3px var(--blue-color);
+}
+
+.container>div.pending:hover {
+    box-shadow: 3px 3px var(--orange-color);
+}
+
+.container>div.completed:hover {
+    box-shadow: 3px 3px var(--green-color);
+}
+
+.container>div.rejected:hover {
+    box-shadow: 3px 3px var(--red-color);
+}
+
+.container>div .finish-date {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    padding: 4px 7px;
+    color: white;
+    border-radius: 13px;
+    font-size: 12px;
+}
+
+.container>div.completed .finish-date {
+    background-color: var(--green-color);
+}
+
+.container>div.rejected .finish-date {
+    background-color: var(--red-color);
+}
+
+.container>div.in-progress .finish-date {
+    background-color: var(--blue-color);
+}
+
+.container>div.pending .finish-date {
+    background-color: var(--orange-color);
+}
+
+.container>div .img {
+    width: 100%;
+    height: 200px;
+    background: #ddd;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background-size: cover;
+}
+
+.container>div .flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0px;
+}
+
+
+.container i#edit {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.container>div span {
+    color: white;
+    border-radius: 9px;
+    font-size: 13px;
+    padding: 3px 5px;
+}
+
+.container>div span.price {
+    color: #777;
+    font-weight: 900;
+}
+
+.completed span.status {
+    background-color: var(--green-color);
+}
+
+.rejected span.status {
+    background-color: var(--red-color);
+}
+
+.in-progress span.status {
+    background-color: var(--blue-color);
+}
+
+.pending span.status {
+    background-color: var(--orange-color);
+}
+
+.client-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    background: black;
+    color: white;
+    width: fit-content;
+}
+
+form {
+    position: absolute;
+    left: 50%;
+    top: 65%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background: white;
+    margin-inline: 20px;
+    border-radius: 10px;
+    z-index: 2;
+    width: 300px;
+    height: fit-content;
+    flex-flow: column wrap;
+    display: none;
+}
+
+form .flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+form .flex i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: .3s;
+    padding: 10px;
+}
+
+form .flex i:hover {
+    background-color: var(--red-color);
+    color: white;
+}
+
+form div:not(.flex) {
+    display: flex;
+    flex-flow: column wrap;
+    margin-bottom: 10px;
+}
+
+form div.stat {
+    background-color: #eee;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(47%, 1fr));
+    gap: 10px;
+    padding: 10px;
+}
+
+form .stat>div {
+    border: 1px solid;
+    border-radius: 6px;
+    text-align: center;
+}
+
+form label {
+    text-transform: capitalize;
+}
+
+form label span {
+    color: var(--red-color);
+}
+
+form input {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 6px;
+    color: white;
+    background-color: var(--blue-alt-color);
+}
+
+form input::placeholder {
+    color: blanchedalmond;
+}
+
+form input:disabled {
+    color: white;
+    background-color: black;
+    cursor: not-allowed;
+}
+
+form button {
+    color: white;
+    background-color: var(--orange-color);
+    width: fit-content;
+    margin: 10px 20px 0px auto;
+    padding: 5px 9px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: block;
+}

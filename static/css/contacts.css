@@ -1,0 +1,150 @@
+section {
+    padding: 20px;
+    margin-inline: 20px;
+}
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill , minmax(300px ,1fr));
+    gap: 20px;
+    text-align: center;
+}
+.container > div {
+    background-color: #eee;
+    border-radius: 10px;
+    padding: 20px;
+}
+.container > div i:not(i#user , a i) {
+    font-size: 20px;
+    cursor: pointer;
+}
+i#user {
+    font-size: 100px;
+    margin-bottom: 20px;
+}
+ h4 {
+    font-size: 14px;
+    text-transform: capitalize;
+}
+span.role {
+    padding: 3px 7px;
+    background-color: #aaa;
+    border-radius: 6px;
+    display: block;
+    font-size: 12px;
+    text-align: left;
+    width: fit-content;
+    color: white;
+}
+hr {
+    margin: 20px 0px;
+}
+#add {
+    padding: 20px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    font-size: large;
+    font-weight: bold;
+    cursor: pointer;
+}
+#add i {
+    font-size: 20px;
+}
+.flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+form {
+    position: absolute;
+    top: 60vh;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background: white;
+    margin-inline: 20px;
+    border-radius: 10px;
+    z-index: 2;
+    width: 300px;
+    height: fit-content;
+    flex-flow: column wrap;
+    display: none;
+}
+
+form .flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+form .flex i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: .3s;
+    padding: 10px;
+}
+
+form .flex i:hover {
+    background-color: var(--red-color);
+    color: white;
+}
+
+form div:not(.flex) {
+    display: flex;
+    flex-flow: column wrap;
+    margin-bottom: 10px;
+}
+
+form div.stat {
+    background-color: #eee;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(47%, 1fr));
+    gap: 10px;
+    padding: 10px;
+}
+
+form .stat>div {
+    border: 1px solid;
+    border-radius: 6px;
+    text-align: center;
+}
+
+form label {
+    text-transform: capitalize;
+}
+
+form label span {
+    color: var(--red-color);
+}
+
+form input {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 6px;
+    color: white;
+    background-color: var(--blue-alt-color);
+}
+
+form input::placeholder {
+    color: blanchedalmond;
+}
+
+form input:disabled {
+    color: white;
+    background-color: black;
+    cursor: not-allowed;
+}
+
+form button {
+    color: white;
+    background-color: var(--orange-color);
+    width: fit-content;
+    margin: 10px 20px 0px auto;
+    padding: 5px 9px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: block;
+}
